@@ -1,0 +1,39 @@
+[versions]
+agp = "8.1.0"  # Android Gradle Plugin
+kotlin = "1.9.0"
+coreKtx = "1.12.0"
+appcompat = "1.6.1"
+material = "1.9.0"
+room = "2.5.0"
+zxing = "4.3.0"
+retrofit = "2.9.0"
+okhttp = "4.9.3"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+
+[libraries]
+# Основные
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+# Room
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
+# QR-сканер
+zxing-embedded = { group = "com.journeyapps", name = "zxing-android-embedded", version.ref = "zxing" }
+
+# Сеть
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+
+# Тестирование
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+[plugins]
+android-application = { id = "com.android.application", version = "8.1.0" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version = "1.9.0" }

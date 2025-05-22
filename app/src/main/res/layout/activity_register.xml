@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:padding="24dp">
+
+    <!-- Логотип (такой же как в activity_login.xml) -->
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:src="@drawable/logo_oiltech"
+        android:scaleType="fitCenter"
+        android:contentDescription="@string/app_logo"
+        app:layout_constraintBottom_toTopOf="@+id/usernameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- Заголовок "Регистрация" -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Регистрация"
+        android:textSize="24sp"
+        android:textColor="@color/green_500"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivLogo"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Поле для логина -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/usernameLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:hint="@string/login_hint"
+        app:shapeAppearanceOverlay="@style/RoundedCorners"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etRegUsername"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            tools:text=""/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Поле для пароля -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/password_hint"
+        app:shapeAppearanceOverlay="@style/RoundedCorners"
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/green_500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/usernameLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etRegPassword"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:inputType="textPassword"
+            android:imeOptions="actionDone"
+            tools:text=""/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Кнопка регистрации -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRegister"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/green_500"
+        android:text="@string/register_button"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="8dp"
+        app:rippleColor="@color/green_700"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordLayout"/>
+
+    <!-- Ссылка на вход (если уже есть аккаунт) -->
+    <TextView
+        android:id="@+id/tvLoginLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Уже есть аккаунт? Войти"
+        android:textColor="@color/green_500"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnRegister"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
