@@ -1,1 +1,31 @@
-/build
+# Built files
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Gradle files
+.gradle/
+build/
+captures/
+bin/
+out/
+
+# Android Studio
+*.iml
+.idea/
+local.properties
+.navigation/
+.cxx/
+
+# Keystores
+*.jks
+*.keystore
+*.key
+
+# Firebase
+google-services.json
+
+# System
+.DS_Store
+Thumbs.db
