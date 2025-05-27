@@ -24,6 +24,12 @@ android {
             )
         }
     }
+
+    // Вкл ViewBinding
+    buildFeatures {
+        viewBinding = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -38,6 +44,7 @@ dependencies {
     implementation ("androidx.room:room-runtime:2.5.0")
     annotationProcessor ("androidx.room:room-compiler:2.5.0") // Для Java
     implementation ("androidx.room:room-ktx:2.5.0")
+    implementation ("androidx.annotation:annotation:1.6.0")
 
     // QR Scanner
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")

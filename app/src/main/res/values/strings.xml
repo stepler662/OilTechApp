@@ -1,7 +1,9 @@
 <resources>
+    <string name="registration_title">Регистрация</string>
+    <string name="already_have_account">Уже есть аккаунт? Войти</string>
     <string name="app_name">OilTechApp</string>
     <string name="app_logo">Логотип OilTech</string>
-    <string name="register_button">ЗАРЕГИСТРИРОВАТЬСЯ</string>
+    <string name="register_button">Зарегистрироваться</string>
     <string name="login_hint">Логин</string>
     <string name="password_hint">Пароль</string>
     <string name="login_button">Войти</string>
