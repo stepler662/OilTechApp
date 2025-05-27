@@ -24,6 +24,7 @@
         <activity android:name=".ui.WelcomeActivity" android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".auth.LoginActivity"/>
         <activity android:name=".ui.MainActivity"/>
+        <activity android:name=".auth.RegisterActivity" />
     </application>
 
 </manifest>
