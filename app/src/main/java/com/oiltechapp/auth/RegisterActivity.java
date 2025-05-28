@@ -3,14 +3,15 @@ package com.oiltechapp.auth;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.oiltechapp.R;
 import com.oiltechapp.database.AppDatabase;
 import com.oiltechapp.models.User;
 
+
 public class RegisterActivity extends AppCompatActivity {
+
     private static final String TAG = "REGISTER_DEBUG";
 
     @Override
