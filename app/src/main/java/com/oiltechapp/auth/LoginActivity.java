@@ -27,19 +27,18 @@ public class LoginActivity extends AppCompatActivity {
         // Инициализация Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        // Инициализация UI элементов
-        eEmail = findViewById(R.id.etUsername); // Переименуйте в etEmail в layout, если нужно
+        // Привязка UI элементов
+        eEmail = findViewById(R.id.etEmail); // Убедитесь, что в layout поле называется etEmail
         ePassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnRegister);
 
-        // Обработчик кнопки входа
+        // Обработка входа
         btnLogin.setOnClickListener(v -> handleLogin());
 
-        // Обработчик кнопки регистрации
+        // Переход на регистрацию
         btnRegister.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(this, RegisterActivity.class));
         });
     }
 
@@ -57,22 +56,17 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Успешный вход
-                        Toast.makeText(LoginActivity.this, "Вход выполнен!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("email", email);
                         startActivity(intent);
                         finish();
                     } else {
-                        // Ошибка входа
-                        Toast.makeText(LoginActivity.this,
-                                "Ошибка входа: " + task.getException().getMessage(),
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(
+                                LoginActivity.this,
+                                "Ошибка: " + task.getException().getMessage(),
+                                Toast.LENGTH_SHORT
+                        ).show();
                     }
                 });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // Firebase закрывает соединение автоматически
     }
 }

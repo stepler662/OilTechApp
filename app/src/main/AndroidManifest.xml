@@ -25,6 +25,8 @@
         <activity android:name=".auth.LoginActivity"/>
         <activity android:name=".ui.MainActivity"/>
         <activity android:name=".auth.RegisterActivity" />
+        <activity android:name=".tests.TestsActivity"/>
+        <activity android:name=".qr.QRScannerActivity"/>
     </application>
 
 </manifest>

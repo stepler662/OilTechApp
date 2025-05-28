@@ -5,74 +5,76 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.oiltechapp.R;
-import com.oiltechapp.database.AppDatabase;
-import com.oiltechapp.models.User;
-
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "REGISTER_DEBUG";
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        Log.d(TAG, "Activity created");
+        // Инициализация Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
 
-        // Обработчик для кнопки регистрации
+        // Обработчик кнопки регистрации
         findViewById(R.id.btnRegister).setOnClickListener(v -> handleRegistration());
 
-        // Обработчик для текста "Уже есть аккаунт? Войти"
+        // Переход на экран входа
         findViewById(R.id.textViewLoginLink).setOnClickListener(v -> {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         });
-
-        // Обработчик для логотипа (возврат назад)
-        findViewById(R.id.ivLogo).setOnClickListener(v -> onBackPressed());
     }
 
     private void handleRegistration() {
-        try {
-            Log.d(TAG, "Register button clicked");
+        String email = ((android.widget.EditText) findViewById(R.id.etRegEmail)).getText().toString().trim();
+        String password = ((android.widget.EditText) findViewById(R.id.etRegPassword)).getText().toString().trim();
 
-            String username = ((android.widget.EditText)findViewById(R.id.etRegUsername)).getText().toString();
-            String password = ((android.widget.EditText)findViewById(R.id.etRegPassword)).getText().toString();
-
-            Log.d(TAG, "Username: " + username + ", Password: " + password);
-
-            if(username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Заполните все поля", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            new Thread(() -> {
-                try {
-                    Log.d(TAG, "Starting DB operation");
-                    AppDatabase db = AppDatabase.getInstance(this);
-
-                    User existingUser = db.userDao().getUserByUsername(username);
-                    runOnUiThread(() -> {
-                        if (existingUser != null) {
-                            Toast.makeText(this, "Пользователь уже существует", Toast.LENGTH_SHORT).show();
-                        } else {
-                            db.userDao().insertUser(new User(username, password));
-                            Toast.makeText(this, "Регистрация успешна!", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    });
-                } catch (Exception e) {
-                    Log.e(TAG, "Database error", e);
-                    runOnUiThread(() ->
-                            Toast.makeText(this, "Ошибка базы данных: " + e.getMessage(), Toast.LENGTH_LONG).show());
-                }
-            }).start();
-
-        } catch (Exception e) {
-            Log.e(TAG, "General error", e);
-            Toast.makeText(this, "Ошибка: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Заполните все поля", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        if (password.length() < 6) {
+            Toast.makeText(this, "Пароль должен содержать минимум 6 символов", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Создание пользователя в Firebase Auth
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null) {
+                            // Дополнительные данные пользователя (если нужны)
+                            Map<String, Object> userData = new HashMap<>();
+                            userData.put("email", email);
+                            userData.put("created_at", System.currentTimeMillis());
+
+                            // Сохранение в Firestore (опционально)
+                            FirebaseFirestore.getInstance()
+                                    .collection("users")
+                                    .document(user.getUid())
+                                    .set(userData)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Toast.makeText(RegisterActivity.this, "Регистрация успешна!", Toast.LENGTH_SHORT).show();
+                                        finish(); // Закрываем активити после успешной регистрации
+                                    });
+                        }
+                    } else {
+                        Toast.makeText(RegisterActivity.this,
+                                "Ошибка: " + task.getException().getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 }
