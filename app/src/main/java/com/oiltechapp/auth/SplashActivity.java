@@ -6,6 +6,7 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 import com.oiltechapp.R;
 import com.oiltechapp.ui.WelcomeActivity;
+import com.oiltechapp.utils.FirebaseManager;
 
 public class SplashActivity extends AppCompatActivity {
     private static final int SPLASH_DELAY = 2000; // 2 с
@@ -14,6 +15,8 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        new FirebaseManager().checkFirebaseConnection(); // Для проверки подключения Firebase
 
         new Handler().postDelayed(() -> {
             startActivity(new Intent(this, WelcomeActivity.class));
