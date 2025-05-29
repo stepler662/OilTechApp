@@ -5,11 +5,10 @@
 //    alias(libs.plugins.google.services) apply false
 //}
 
-
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
-    id("com.google.gms.google-services") version "4.4.1" apply false // Исправленная строка
+    id("com.google.gms.google-services") version "4.4.1" apply false
 }
 
 buildscript {
@@ -19,6 +18,6 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle:8.2.2")
-        classpath("com.google.gms:google-services:4.4.1") // Добавьте эту строку
+        classpath("com.google.gms:google-services:4.4.1")
     }
 }

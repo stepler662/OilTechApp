@@ -46,6 +46,7 @@ dependencies {
     implementation ("com.google.firebase:firebase-auth:22.2.0")
     implementation ("com.google.firebase:firebase-auth")
     implementation ("com.google.firebase:firebase-firestore")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
