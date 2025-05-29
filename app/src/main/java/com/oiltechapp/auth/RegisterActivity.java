@@ -69,6 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         Toast.makeText(RegisterActivity.this, "Регистрация успешна!", Toast.LENGTH_SHORT).show();
                                         finish(); // Закрываем активити после успешной регистрации
                                     });
+
                         }
                     } else {
                         Toast.makeText(RegisterActivity.this,

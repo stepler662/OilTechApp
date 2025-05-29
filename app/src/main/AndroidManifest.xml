@@ -29,29 +29,44 @@
         </activity>
 
         <!-- Остальные активности -->
-        <activity android:name=".ui.WelcomeActivity"
+        <activity
+            android:name=".ui.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:exported="false"/>
 
-        <activity android:name=".auth.LoginActivity"
+        <activity
+            android:name=".auth.LoginActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="false"/>
 
-        <activity android:name=".ui.MainActivity"
+        <activity
+            android:name=".ui.MainActivity"
             android:exported="false"/>
 
-        <activity android:name=".ui.MainMenuActivity"
+        <activity
+            android:name=".ui.MainMenuActivity"
             android:launchMode="singleTop"
             android:exported="false"/>
 
-        <activity android:name=".auth.RegisterActivity"
+        <activity
+            android:name=".auth.RegisterActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="false"/>
 
-        <activity android:name=".tests.TestsActivity"
+        <activity
+            android:name=".tests.TestsActivity"
             android:exported="false"/>
 
-        <activity android:name=".qr.QRScannerActivity"
+        <activity
+            android:name=".tests.TestQuestionActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".tests.TestResultsActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".qr.QRScannerActivity"
             android:exported="false"/>
 
     </application>
