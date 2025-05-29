@@ -17,7 +17,6 @@ public class WelcomeActivity extends AppCompatActivity {
         btnContinue.setOnClickListener(v -> {
             startActivity(new Intent(this, LoginActivity.class));
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            finish();
         });
     }
 }

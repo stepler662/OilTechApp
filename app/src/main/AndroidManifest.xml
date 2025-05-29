@@ -2,31 +2,57 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.oiltechapp">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
-        android:hardwareAccelerated="true">
+        android:hardwareAccelerated="true"
+        android:usesCleartextTraffic="true">
 
-        <!-- Здесь объявляем Activity -->
+        <!-- Splash Screen -->
         <activity
             android:name=".auth.SplashActivity"
             android:exported="true"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <!-- Остальные активности -->
+        <activity android:name=".ui.WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false"/>
 
-        <!-- Другие Activity -->
-        <activity android:name=".ui.WelcomeActivity" android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".auth.LoginActivity"/>
-        <activity android:name=".ui.MainActivity"/>
-        <activity android:name=".auth.RegisterActivity" />
-        <activity android:name=".tests.TestsActivity"/>
-        <activity android:name=".qr.QRScannerActivity"/>
+        <activity android:name=".auth.LoginActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false"/>
+
+        <activity android:name=".ui.MainActivity"
+            android:exported="false"/>
+
+        <activity android:name=".ui.MainMenuActivity"
+            android:launchMode="singleTop"
+            android:exported="false"/>
+
+        <activity android:name=".auth.RegisterActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false"/>
+
+        <activity android:name=".tests.TestsActivity"
+            android:exported="false"/>
+
+        <activity android:name=".qr.QRScannerActivity"
+            android:exported="false"/>
+
     </application>
-
 </manifest>

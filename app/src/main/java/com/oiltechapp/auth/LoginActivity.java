@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.oiltechapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.oiltechapp.ui.MainActivity;
+import com.oiltechapp.ui.MainMenuActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -28,17 +29,27 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         // Привязка UI элементов
-        eEmail = findViewById(R.id.etEmail); // Убедитесь, что в layout поле называется etEmail
+        initializeViews();
+
+        // Установка обработчиков событий
+        setupClickListeners();
+    }
+
+    private void initializeViews() {
+        eEmail = findViewById(R.id.etEmail);
         ePassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnRegister);
+    }
 
+    private void setupClickListeners() {
         // Обработка входа
         btnLogin.setOnClickListener(v -> handleLogin());
 
         // Переход на регистрацию
         btnRegister.setOnClickListener(v -> {
-            startActivity(new Intent(this, RegisterActivity.class));
+            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         });
     }
 
@@ -46,27 +57,57 @@ public class LoginActivity extends AppCompatActivity {
         String email = eEmail.getText().toString().trim();
         String password = ePassword.getText().toString().trim();
 
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Введите email и пароль", Toast.LENGTH_SHORT).show();
+        if (!validateInput(email, password)) {
             return;
         }
 
-        // Аутентификация через Firebase
+        authenticateUser(email, password);
+    }
+
+    private boolean validateInput(String email, String password) {
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Введите email и пароль", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (password.length() < 6) {
+            Toast.makeText(this, "Пароль должен содержать минимум 6 символов", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
+    private void authenticateUser(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Успешный вход
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.putExtra("email", email);
-                        startActivity(intent);
-                        finish();
+                        navigateToMainActivity(email);
                     } else {
-                        Toast.makeText(
-                                LoginActivity.this,
-                                "Ошибка: " + task.getException().getMessage(),
-                                Toast.LENGTH_SHORT
-                        ).show();
+                        showError(task.getException().getMessage());
                     }
                 });
+    }
+
+    private void navigateToMainActivity(String email) {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.putExtra("email", email);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    private void showError(String errorMessage) {
+        Toast.makeText(
+                LoginActivity.this,
+                "Ошибка входа: " + errorMessage,
+                Toast.LENGTH_LONG
+        ).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 }
